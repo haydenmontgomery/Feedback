@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+<h1>{{user.username}}</h1>
+<hr class="border border-primary border-3 opacity-75">
+<p>Email: {{user.email}}</p>
+<p>Name: {{user.first_name}} {{user.last_name}}</p>
+<h3>Feedback:</h3>
+<ul>
+    {% for feedback in feedbacks %}
+    <li>
+        {{feedback.title}}
+        <ul>
+            <li>
+                {{feedback.content}} <a href="/feedback/{{feedback.id}}/update" class="btn btn-sm btn-primary text-light">Update</a>
+            </li>
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% if session['username'] == user.username %}
+<a href="/users/{{user.username}}/feedback/add" class="btn btn-success">Add Feedback</a>
+<form style="display:inline" action="/users/{{user.username}}/delete" method="POST">
+<button class="btn btn-danger">Delete User</button>
+</form>
+{% endif %}
+{% endblock %}
