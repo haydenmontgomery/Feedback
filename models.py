@@ -25,6 +25,8 @@ class User(db.Model):
 
     last_name = db.Column(db.String(30), nullable=False)
 
+    feedbacks = db.relationship("Feedback", backref="user", passive_deletes='all')
+
     @classmethod
     def register(cls, username, pwd, email, first_name, last_name):
         """Register user w/hashed password & return user"""
